@@ -57,7 +57,7 @@ jobs:
 
     - name: Generate release tag
       id: tag
-      run: echo "release_tag=$(wget -qO- https://api.github.com/repos/Jerrynh770/cloudreve/tags | gawk -F '["v]' '/name/{print $4;exit}')" >> $GITHUB_OUTPUT
+      run: echo "release_tag=$(wget -qO- https://api.github.com/repos/Jerrynh770/cloudreve-mod/tags | gawk -F '["v]' '/name/{print $4;exit}')" >> $GITHUB_OUTPUT
 
     - name: Create release
       uses: softprops/action-gh-release@v1
