@@ -37,7 +37,7 @@ jobs:
         run: |
           export LATEST_APP=$(wget -qO- https://api.github.com/repos/Jerrynh770/cloudreve-mod/tags | gawk -F '["v]' '/name/{print $4;exit}')
           git clone -b $LATEST_APP --recurse-submodules https://github.com/Jerrynh770/cloudreve-mod
-          cd Cloudreve
+          cd cloudreve-mod
           rm -rf assets && mv -f ../frontend ./assets && cp ../assets.zip ./assets.zip
           export ldflags="\
           -X 'github.com/Jerrynh770/cloudreve-mod/v3/pkg/conf.BackendVersion={{.Tag}}' \
@@ -45,7 +45,7 @@ jobs:
           "
           go mod tidy
           GOOS=freebsd GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="$ldflags" -o cloudreve && cp cloudreve ../cloudreve
-          cd .. && mkdir -p target && mv -f Cloudreve/assets/build target/statics && mv -f cloudreve target/cloudreve && cd target && tar -czvf ../cloudreve-freebsd-amd64.tar.gz *
+          cd .. && mkdir -p target && mv -f cloudreve-mod/assets/build target/statics && mv -f cloudreve target/cloudreve && cd target && tar -czvf ../cloudreve-freebsd-amd64.tar.gz *
           cd ..
 
     - name: Upload artifact
